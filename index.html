@@ -1,26 +1,956 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Lovable App</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gut Health Scorecard — Is your gut recovery on track?</title>
+  <meta name="description" content="Take our free 13-question gut health scorecard and discover where you stand in your recovery journey." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <!-- TODO: Update og:title to match your application name -->
-    <meta property="og:title" content="Lovable App" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    :root {
+      --bg:            #0d1117;
+      --surface:       #161b22;
+      --surface-hi:    #1c2128;
+      --border:        #21262d;
+      --border-hi:     #30363d;
+      --primary:       #1A5EC8;
+      --primary-hi:    #2d71e8;
+      --accent:        #1D9E75;
+      --accent-hi:     #1bb882;
+      --amber:         #d97706;
+      --danger:        #dc2626;
+      --text:          #f0f6fc;
+      --text-2:        #8b949e;
+      --text-3:        #6e7681;
+      --r:             12px;
+      --r-lg:          18px;
+    }
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    html, body {
+      min-height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    .hidden { display: none !important; }
+
+    /* ─── SCREENS ───────────────────────────────────────── */
+    .screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ─── START SCREEN ──────────────────────────────────── */
+    #start-screen {
+      justify-content: center;
+      padding: 3rem 1.5rem 4rem;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(26,94,200,0.22) 0%, transparent 70%),
+        var(--bg);
+    }
+
+    .start-inner {
+      max-width: 540px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      font-size: 1.875rem;
+      color: #fff;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 24px rgba(26,94,200,0.35);
+    }
+
+    .eyebrow {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .start-title {
+      font-size: clamp(1.875rem, 6vw, 3rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.25rem;
+    }
+
+    .start-title .hi { color: var(--primary); }
+
+    .start-sub {
+      font-size: 1.0625rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      max-width: 420px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.9375rem 2rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+      box-shadow: 0 4px 16px rgba(26,94,200,0.35);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hi);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26,94,200,0.45);
+    }
+
+    .start-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.75rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.8125rem;
+      color: var(--text-3);
+    }
+
+    .meta-item i { font-size: 0.875rem; }
+
+    /* ─── QUIZ SCREEN ───────────────────────────────────── */
+    #quiz-screen { padding: 0; justify-content: flex-start; }
+
+    .quiz-top {
+      width: 100%;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .quiz-top-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-3);
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-track {
+      height: 3px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 4px;
+      transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+      width: 0%;
+    }
+
+    .quiz-body {
+      flex: 1;
+      width: 100%;
+      max-width: 560px;
+      padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--primary);
+      background: rgba(26,94,200,0.12);
+      padding: 0.3125rem 0.75rem;
+      border-radius: 50px;
+      margin-bottom: 1.25rem;
+    }
+
+    .q-text {
+      font-size: 1.1875rem;
+      font-weight: 600;
+      line-height: 1.45;
+      letter-spacing: -0.015em;
+      margin-bottom: 1.75rem;
+    }
+
+    .opts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      list-style: none;
+    }
+
+    .opt-btn {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 1rem 1.125rem;
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      line-height: 1.45;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    }
+
+    .opt-btn:hover {
+      border-color: var(--primary);
+      background: var(--surface-hi);
+      transform: translateX(3px);
+    }
+
+    .opt-btn.selected {
+      border-color: var(--accent);
+      background: rgba(29,158,117,0.07);
+    }
+
+    .opt-letter {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--text-3);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .opt-btn.selected .opt-letter {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .btn-back {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: none;
+      border: 1.5px solid var(--border);
+      color: var(--text-2);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.625rem 1.125rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .btn-back:hover { border-color: var(--border-hi); color: var(--text); }
+    .btn-back:disabled { opacity: 0.25; pointer-events: none; }
+
+    .btn-next {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      padding: 0.6875rem 1.5rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+    }
+
+    .btn-next:disabled { opacity: 0.3; cursor: not-allowed; }
+    .btn-next:not(:disabled):hover { background: var(--primary-hi); }
+
+    /* ─── RESULTS SCREEN ────────────────────────────────── */
+    #results-screen {
+      justify-content: flex-start;
+      padding: 2.5rem 1.5rem 4rem;
+      background:
+        radial-gradient(ellipse 80% 45% at 50% -5%, rgba(29,158,117,0.16) 0%, transparent 65%),
+        var(--bg);
+    }
+
+    .results-inner {
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .results-hd {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .results-hd .eyebrow { margin-bottom: 0.5rem; }
+
+    .results-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+
+    /* Ring */
+    .ring-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .ring-svg { width: 190px; height: 190px; }
+
+    .ring-track {
+      fill: none;
+      stroke: var(--border-hi);
+      stroke-width: 13;
+    }
+
+    .ring-fill {
+      fill: none;
+      stroke-width: 13;
+      stroke-linecap: round;
+      transform-box: fill-box;
+      transform-origin: center;
+      transform: rotate(-90deg);
+    }
+
+    .ring-pct {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.125rem;
+      font-weight: 800;
+      fill: var(--text);
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .ring-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      fill: var(--text-3);
+      text-anchor: middle;
+      dominant-baseline: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .result-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.5rem 1.25rem;
+      border-radius: 50px;
+      margin-top: 1rem;
+    }
+
+    .pill-intune   { background: rgba(29,158,117,0.14); color: var(--accent); }
+    .pill-moderate { background: rgba(217,119,6,0.14);  color: var(--amber); }
+    .pill-highneed { background: rgba(220,38,38,0.14);  color: var(--danger); }
+
+    /* Insight card */
+    .insight {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.25rem 1.5rem;
+      font-size: 0.9375rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+
+    .insight strong { color: var(--text); }
+
+    /* Legend */
+    .legend-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-3);
+      margin-bottom: 0.625rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .leg-item {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding: 0.875rem 1rem;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .leg-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .leg-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.125rem;
+    }
+
+    .leg-desc {
+      font-size: 0.8125rem;
+      color: var(--text-3);
+    }
+
+    /* CTA */
+    .cta-block { text-align: center; }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 1rem 2.25rem;
+      border-radius: 50px;
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+      box-shadow: 0 4px 16px rgba(29,158,117,0.35);
+    }
+
+    .btn-cta:hover {
+      background: var(--accent-hi);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(29,158,117,0.45);
+    }
+
+    .cta-note {
+      margin-top: 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--text-3);
+    }
+
+    .btn-retake {
+      background: none;
+      border: none;
+      color: var(--text-3);
+      font-family: inherit;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 1.25rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-retake:hover { color: var(--text-2); }
+
+    /* ─── ANIMATIONS ────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.28s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    @media (max-width: 400px) {
+      .start-title { font-size: 1.75rem; }
+      .q-text      { font-size: 1.0625rem; }
+      .start-meta  { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     START SCREEN
+════════════════════════════════════════════════════════ -->
+<section class="screen" id="start-screen">
+  <div class="start-inner">
+    <div class="logo-mark">
+      <i class="ti ti-activity"></i>
+    </div>
+    <p class="eyebrow">Gut Health Scorecard</p>
+    <h1 class="start-title">
+      Is your gut recovery<br><span class="hi">on track?</span>
+    </h1>
+    <p class="start-sub">
+      Answer 13 quick questions to understand where you stand in your gut health journey — and what to focus on next.
+    </p>
+    <button class="btn-primary" onclick="startQuiz()">
+      Start Assessment <i class="ti ti-arrow-right"></i>
+    </button>
+    <div class="start-meta">
+      <span class="meta-item"><i class="ti ti-clock"></i> 2 minutes</span>
+      <span class="meta-item"><i class="ti ti-list-check"></i> 13 questions</span>
+      <span class="meta-item"><i class="ti ti-lock"></i> Free</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     QUIZ SCREEN
+════════════════════════════════════════════════════════ -->
+<section class="screen hidden" id="quiz-screen">
+  <div class="quiz-top">
+    <div class="quiz-top-inner">
+      <div class="progress-meta">
+        <span id="prog-q">Question 1 of 13</span>
+        <span id="prog-s">Bowel Predictability</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="prog-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-body">
+    <div id="q-wrap"></div>
+    <div class="quiz-nav">
+      <button class="btn-back" id="btn-back" onclick="prevQ()" disabled>
+        <i class="ti ti-arrow-left"></i> Back
+      </button>
+      <button class="btn-next" id="btn-next" onclick="nextQ()" disabled>
+        Next <i class="ti ti-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     RESULTS SCREEN
+════════════════════════════════════════════════════════ -->
+<section class="screen hidden" id="results-screen">
+  <div class="results-inner">
+
+    <div class="results-hd">
+      <p class="eyebrow">Your Results</p>
+      <h2 class="results-title">Here's how your gut is doing</h2>
+    </div>
+
+    <div class="ring-wrap">
+      <svg class="ring-svg" viewBox="0 0 190 190" aria-hidden="true">
+        <circle class="ring-track" cx="95" cy="95" r="78" />
+        <circle class="ring-fill" id="ring-arc" cx="95" cy="95" r="78"
+                stroke="#1D9E75" stroke-dasharray="0 490" />
+        <text class="ring-pct" id="ring-pct" x="95" y="88">—</text>
+        <text class="ring-sub" id="ring-sub" x="95" y="109">gut score</text>
+      </svg>
+      <div class="result-pill" id="result-pill">—</div>
+    </div>
+
+    <div class="insight" id="insight"></div>
+
+    <p class="legend-label">Score guide</p>
+    <div class="legend">
+      <div class="leg-item" id="leg-intune">
+        <div class="leg-dot" style="background:#1D9E75"></div>
+        <div>
+          <span class="leg-name">In tune</span>
+          <span class="leg-desc">Strong awareness, consistent patterns, good control</span>
+        </div>
+      </div>
+      <div class="leg-item" id="leg-moderate">
+        <div class="leg-dot" style="background:#d97706"></div>
+        <div>
+          <span class="leg-name">Moderate</span>
+          <span class="leg-desc">Growing awareness with some gaps still to bridge</span>
+        </div>
+      </div>
+      <div class="leg-item" id="leg-highneed">
+        <div class="leg-dot" style="background:#dc2626"></div>
+        <div>
+          <span class="leg-name">High need</span>
+          <span class="leg-desc">Symptoms are disrupting daily life — support can help</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="btn-cta" href="https://gutbackontrack.net" target="_blank" rel="noopener">
+        Start your gut recovery <i class="ti ti-arrow-right"></i>
+      </a>
+      <p class="cta-note">Personalised support at gutbackontrack.net</p>
+      <button class="btn-retake" onclick="retake()">Retake the scorecard</button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const SECTIONS = [
+  { name: "Bowel Predictability", icon: "ti-clock"      },
+  { name: "Food Awareness",       icon: "ti-apple"      },
+  { name: "Hydration Awareness",  icon: "ti-droplet"    },
+  { name: "Pattern Recognition",  icon: "ti-chart-line" },
+  { name: "Stool Consistency",    icon: "ti-activity"   },
+  { name: "Emotional Impact",     icon: "ti-mood-smile" }
+];
+
+const QS = [
+  // ── Section 1: Bowel Predictability ──────────────────────────────
+  { sec: 0,
+    q: "How predictable are your bowel movements throughout the day?",
+    opts: [
+      { t: "Very predictable — I go at roughly the same time each day",              s: 4 },
+      { t: "Somewhat predictable — patterns exist but vary from week to week",       s: 3 },
+      { t: "Mostly unpredictable — timing is hard to anticipate",                    s: 2 },
+      { t: "Completely unpredictable — urgency or nothing, without warning",         s: 1 }
+    ]
+  },
+  { sec: 0,
+    q: "How often do you experience sudden urgency or need to rush to the bathroom?",
+    opts: [
+      { t: "Rarely or never",                  s: 4 },
+      { t: "Once or twice a week",             s: 3 },
+      { t: "Several times a week",             s: 2 },
+      { t: "Daily or multiple times a day",    s: 1 }
+    ]
+  },
+  // ── Section 2: Food Awareness ─────────────────────────────────────
+  { sec: 1,
+    q: "How well do you know which foods trigger your gut symptoms?",
+    opts: [
+      { t: "Very well — I have a clear picture of my triggers",                  s: 4 },
+      { t: "Fairly well — I know some triggers but not all",                     s: 3 },
+      { t: "Somewhat — I have guesses but nothing confirmed",                    s: 2 },
+      { t: "Not at all — food triggers are a complete mystery to me",            s: 1 }
+    ]
+  },
+  { sec: 1,
+    q: "How confident do you feel when choosing what to eat day to day?",
+    opts: [
+      { t: "Very confident — I have a clear, workable approach",                 s: 4 },
+      { t: "Fairly confident — I have some guidelines I follow",                 s: 3 },
+      { t: "Sometimes uncertain — food often feels like trial and error",        s: 2 },
+      { t: "Very uncertain — most meals feel like a gamble",                     s: 1 }
+    ]
+  },
+  // ── Section 3: Hydration Awareness ───────────────────────────────
+  { sec: 2,
+    q: "How consistently do you stay well-hydrated throughout the day?",
+    opts: [
+      { t: "Very consistently — I drink water steadily all day",                      s: 4 },
+      { t: "Mostly — I sometimes forget but usually catch up",                        s: 3 },
+      { t: "Inconsistently — I often realise too late I haven't drunk enough",        s: 2 },
+      { t: "Poorly — hydration is something I rarely think about",                    s: 1 }
+    ]
+  },
+  { sec: 2,
+    q: "Have you noticed a connection between your hydration levels and your gut symptoms?",
+    opts: [
+      { t: "Yes, clearly — hydration noticeably affects how my gut feels",    s: 4 },
+      { t: "I think so — there seems to be a connection",                     s: 3 },
+      { t: "Not really — I haven't made that link yet",                       s: 2 },
+      { t: "No — I don't see any connection between the two",                 s: 1 }
+    ]
+  },
+  // ── Section 4: Pattern Recognition ───────────────────────────────
+  { sec: 3,
+    q: "How well can you connect lifestyle factors (sleep, stress, food) to your gut symptoms?",
+    opts: [
+      { t: "Very well — I can clearly identify cause and effect",             s: 4 },
+      { t: "Fairly well — I notice patterns reasonably often",               s: 3 },
+      { t: "Occasionally — I spot patterns only in hindsight",               s: 2 },
+      { t: "Not at all — my symptoms feel completely random",                s: 1 }
+    ]
+  },
+  { sec: 3,
+    q: "Do you track your gut symptoms, food intake, or bowel habits in any way?",
+    opts: [
+      { t: "Yes, regularly — I use an app or keep written notes",            s: 4 },
+      { t: "Sometimes — I track when symptoms flare up",                     s: 3 },
+      { t: "Rarely — I've tried but it hasn't stuck",                        s: 2 },
+      { t: "Never — I don't track anything",                                 s: 1 }
+    ]
+  },
+  // ── Section 5: Stool Consistency ─────────────────────────────────
+  { sec: 4,
+    q: "How often do you have comfortable, well-formed stools?",
+    opts: [
+      { t: "Most days",                      s: 4 },
+      { t: "Several times a week",           s: 3 },
+      { t: "A couple of times a week",       s: 2 },
+      { t: "Rarely",                         s: 1 }
+    ]
+  },
+  { sec: 4,
+    q: "How often do you experience bloating or uncomfortable gas?",
+    opts: [
+      { t: "Rarely or never",         s: 4 },
+      { t: "A few times a week",      s: 3 },
+      { t: "Most days",               s: 2 },
+      { t: "Almost every day",        s: 1 }
+    ]
+  },
+  { sec: 4,
+    q: "How often do you experience cramping or abdominal discomfort?",
+    opts: [
+      { t: "Rarely or never",         s: 4 },
+      { t: "Occasionally",            s: 3 },
+      { t: "Several times a week",    s: 2 },
+      { t: "Daily",                   s: 1 }
+    ]
+  },
+  // ── Section 6: Emotional Impact ──────────────────────────────────
+  { sec: 5,
+    q: "How much does gut discomfort affect your daily energy or mood?",
+    opts: [
+      { t: "Very little — it rarely affects my day",                            s: 4 },
+      { t: "Somewhat — it occasionally drags me down",                          s: 3 },
+      { t: "Noticeably — it affects my mood fairly often",                      s: 2 },
+      { t: "Significantly — it regularly impacts how I function",               s: 1 }
+    ]
+  },
+  { sec: 5,
+    q: "Does gut anxiety affect your social life, travel, or food choices?",
+    opts: [
+      { t: "Not at all — I feel free to do most things",                        s: 4 },
+      { t: "A little — I occasionally plan around my gut",                      s: 3 },
+      { t: "Moderately — gut issues affect a number of my decisions",           s: 2 },
+      { t: "A lot — my gut significantly limits how I live",                    s: 1 }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+let cur = 0;
+let ans = new Array(QS.length).fill(null);
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────
+function startQuiz() {
+  hide('start-screen');
+  show('quiz-screen');
+  renderQ();
+}
+
+function prevQ() {
+  if (cur > 0) { cur--; renderQ(); }
+}
+
+function nextQ() {
+  if (ans[cur] === null) return;
+  if (cur < QS.length - 1) { cur++; renderQ(); }
+  else showResults();
+}
+
+function retake() {
+  cur = 0;
+  ans = new Array(QS.length).fill(null);
+  hide('results-screen');
+  show('start-screen');
+}
+
+// ── RENDER QUESTION ───────────────────────────────────────────────────────
+function renderQ() {
+  const q   = QS[cur];
+  const sec = SECTIONS[q.sec];
+  const N   = QS.length;
+  const LET = ['A','B','C','D'];
+
+  // progress bar
+  document.getElementById('prog-bar').style.width = (cur / N * 100) + '%';
+  document.getElementById('prog-q').textContent   = `Question ${cur + 1} of ${N}`;
+  document.getElementById('prog-s').textContent   = sec.name;
+
+  // nav buttons
+  document.getElementById('btn-back').disabled = cur === 0;
+  const nxt = document.getElementById('btn-next');
+  nxt.disabled = ans[cur] === null;
+  nxt.innerHTML = cur === N - 1
+    ? 'See Results <i class="ti ti-chart-bar"></i>'
+    : 'Next <i class="ti ti-arrow-right"></i>';
+
+  // question markup
+  const optsHtml = q.opts.map((o, i) => `
+    <li>
+      <button class="opt-btn${ans[cur] === i ? ' selected' : ''}"
+              onclick="pick(${i})">
+        <span class="opt-letter">${LET[i]}</span>
+        <span>${o.t}</span>
+      </button>
+    </li>`).join('');
+
+  const wrap = document.getElementById('q-wrap');
+  wrap.innerHTML = `
+    <div class="section-tag">
+      <i class="ti ${sec.icon}"></i>${sec.name}
+    </div>
+    <p class="q-text">${q.q}</p>
+    <ul class="opts">${optsHtml}</ul>`;
+
+  // restart animation
+  wrap.classList.remove('fade-up');
+  void wrap.offsetWidth;
+  wrap.classList.add('fade-up');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function pick(i) {
+  ans[cur] = i;
+  renderQ();
+}
+
+// ── RESULTS ───────────────────────────────────────────────────────────────
+function showResults() {
+  hide('quiz-screen');
+  show('results-screen');
+
+  // score
+  const raw  = ans.reduce((sum, a, i) => sum + (a !== null ? QS[i].opts[a].s : 0), 0);
+  const MIN  = QS.length;       // 13
+  const MAX  = QS.length * 4;   // 52
+  const pct  = Math.round(((raw - MIN) / (MAX - MIN)) * 100);
+
+  // band
+  let band, color, pillClass, insightHtml;
+  if (pct >= 67) {
+    band       = 'In tune';
+    color      = '#1D9E75';
+    pillClass  = 'pill-intune';
+    insightHtml = `<strong>Your gut health awareness is strong.</strong> Your answers suggest well-mapped patterns, reasonable control, and a lifestyle that broadly supports your gut. Keep consistent and continue fine-tuning based on what your body tells you — small optimisations can take you from good to great.`;
+  } else if (pct >= 34) {
+    band       = 'Moderate';
+    color      = '#d97706';
+    pillClass  = 'pill-moderate';
+    insightHtml = `<strong>You're building gut awareness, but gaps remain.</strong> Your answers show some understanding of your triggers and patterns — but inconsistency or blind spots are likely slowing your recovery. Focused support and a structured approach could help you bridge those gaps faster than going it alone.`;
+  } else {
+    band       = 'High need';
+    color      = '#dc2626';
+    pillClass  = 'pill-highneed';
+    insightHtml = `<strong>Your gut is sending clear signals that it needs more support.</strong> Unpredictability, discomfort, and uncertainty are significantly affecting your daily life. You're not alone — many people feel stuck at this stage. Structured, personalised guidance could make a real difference in getting you back on track.`;
+  }
+
+  // ring
+  const R    = 78;
+  const CIRC = 2 * Math.PI * R;  // ≈ 490
+  const arc  = document.getElementById('ring-arc');
+  arc.setAttribute('stroke', color);
+  arc.setAttribute('stroke-dasharray', `0 ${CIRC}`);
+
+  document.getElementById('ring-pct').textContent = pct + '%';
+  document.getElementById('ring-pct').setAttribute('fill', color);
+
+  const pill = document.getElementById('result-pill');
+  pill.className = `result-pill ${pillClass}`;
+  pill.innerHTML = `<i class="ti ti-circle-filled" style="font-size:0.55rem"></i>${band}`;
+
+  document.getElementById('insight').innerHTML = insightHtml;
+
+  // highlight active legend row
+  const map = { intune: 'leg-intune', moderate: 'leg-moderate', highneed: 'leg-highneed' };
+  const key = pillClass.replace('pill-', '');
+  Object.entries(map).forEach(([k, id]) => {
+    const el = document.getElementById(id);
+    if (k === key) {
+      el.style.borderColor = color;
+      el.style.background  = color + '14';
+    } else {
+      el.style.borderColor = '';
+      el.style.background  = '';
+    }
+  });
+
+  // animate ring
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    animateArc(arc, pct / 100 * CIRC, CIRC, 1100);
+  }));
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function animateArc(el, target, circ, ms) {
+  const t0 = performance.now();
+  (function step(now) {
+    const p  = Math.min((now - t0) / ms, 1);
+    const ep = 1 - Math.pow(1 - p, 3);          // ease-out cubic
+    el.setAttribute('stroke-dasharray', `${ep * target} ${circ}`);
+    if (p < 1) requestAnimationFrame(step);
+  })(t0);
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────
+function show(id) { document.getElementById(id).classList.remove('hidden'); }
+function hide(id) { document.getElementById(id).classList.add('hidden'); }
+</script>
+</body>
 </html>
